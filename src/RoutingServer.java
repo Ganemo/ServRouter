@@ -1,4 +1,5 @@
 
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -34,9 +35,9 @@ public class RoutingServer {
 	}
 	
 	// map of regions, along with routing registry
-	public Map<RegionIndex, Region> RegionsByIndex;
-	public Map<Integer, Region> RegionsByID;
-	public Map<Integer, Player> PlayerMap;
+	private Map<RegionIndex, Region> RegionsByIndex;
+	private Map<Integer, Region> RegionsByID;
+	private Map<Integer, Player> PlayerMap;
 	
 	private final int MapSize = 20;
 	private Random RandGenerator;
@@ -65,21 +66,21 @@ public class RoutingServer {
 		}
 	}
 	
-	boolean startPlaying(String IncomingIP) {
-		Player Player = new Player(IncomingIP);
+	Player startPlaying(InetAddress IncomingIP, int IncomingPort) {
+		Player Player = new Player(IncomingIP, IncomingPort);
 		
 		Region SelectedRegion = selectRegion();
 		
 		if(SelectedRegion == null) {
-			return false;
+			return null;
 		}
 		
 		if(SelectedRegion.addPlayer(Player)) {
 			PlayerMap.put(Player.PlayerID, Player);
-			return true;
+			return Player;
 		}
 		
-		return false;
+		return null;
 	}
 	
 	boolean stopPlaying(int PlayerID) {
@@ -117,10 +118,15 @@ public class RoutingServer {
 			return false;
 		}
 		
-		PrevReg.removePlayer(Player);
+		if(!PrevReg.removePlayer(Player)) {
+			return false;
+		}
 		
+		if(!NewReg.addPlayer(Player)) {
+			return false;
+		}
 		
-		return false;
+		return true;
 	}
 	
 	Region selectRegion() {
@@ -151,17 +157,6 @@ public class RoutingServer {
 		
 		return RegionsByIndex.get(Index);
 	}
-
-    public static void main(String[] args) throws Exception {
-    	
-    	RoutingServer Server = new RoutingServer();
-    	
-    	for(int x=0; x<1000; ++x) {
-    		Server.startPlaying(Integer.toString(x));
-    	}
-    	
-    	System.out.println("Done");
-    }
 }
 	
 	

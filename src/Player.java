@@ -1,15 +1,17 @@
-import java.util.Map;
+import java.net.InetAddress;
 
 public class Player {
 	
 	public int PlayerID;
-	public String IP;
+	public InetAddress IP;
+	public int Port;
 	public int RegionID;
 	
-	public Player(String IP) {		
+	public Player(InetAddress IP, int Port) {		
 		this.IP = IP;
+		this.Port = Port;
 
-		PlayerID = IP.hashCode();
+		PlayerID = IP.toString().hashCode() + Integer.hashCode(Port);
 	}
 	
 	@Override
