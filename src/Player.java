@@ -11,7 +11,7 @@ public class Player {
 		this.IP = IP;
 		this.Port = Port;
 
-		PlayerID = IP.toString().hashCode() + Integer.hashCode(Port);
+		PlayerID = IP.toString().hashCode();
 	}
 	
 	@Override
