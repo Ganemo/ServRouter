@@ -16,14 +16,20 @@ public class UDPSocketListener {
 	private final String FailureMessage = "Could Not Add Player";
 	private byte[] FailureMessageBytes;
 	
+	private final int DestinationSocket = 8000;
+	
 	public UDPSocketListener(RoutingServer InServer) {
 		Server = InServer;
 		FailureMessageBytes = FailureMessage.getBytes();
 	}
 	
 	public void start() throws IOException {
+		System.out.println("Opening Socket" + DestinationSocket);
+		
 		// Attempt to open socket
-		Socket = new DatagramSocket(8000);
+		Socket = new DatagramSocket(DestinationSocket);
+		
+		System.out.println("Socket Sucessfully Opened");
 		
 		Running = true;
 		

@@ -1,19 +1,31 @@
 
 public class Module {
 
+	static UDPSocketListener Listener;
+	static RoutingServer Server;
+	
     public static void main(String[] args) {
+    	
+    	Runtime.getRuntime().addShutdownHook(new Thread()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	    	Listener.stop();
+    	    	Server.KickAllPlayers();
+    	    }
+    	});
+    	
     	System.out.println("Starting Server");
+    	Server = new RoutingServer();
     	
-    	RoutingServer Server = new RoutingServer();
-    	
-    	System.out.println("Starting Listener");
     	try {
-    		UDPSocketListener Listener = new UDPSocketListener(Server);
+    		System.out.println("Starting Listener");
+    		Listener = new UDPSocketListener(Server);
     		Listener.start();
     	} catch (Exception e) {
     		System.out.println("Listener Failed");
     		e.printStackTrace();
     	}
-    	System.out.println("Listener Success!");
     }
 }

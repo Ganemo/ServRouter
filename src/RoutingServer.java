@@ -157,6 +157,10 @@ public class RoutingServer {
 		
 		return RegionsByIndex.get(Index);
 	}
+	
+	void KickAllPlayers() {
+		
+	}
 }
 	
 	
