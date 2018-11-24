@@ -9,6 +9,7 @@ public class Module {
     	System.out.println("Starting Listener");
     	try {
     		UDPSocketListener Listener = new UDPSocketListener(Server);
+    		Listener.start();
     	} catch (Exception e) {
     		System.out.println("Listener Failed");
     		e.printStackTrace();
