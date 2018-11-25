@@ -21,6 +21,10 @@ public class Region {
 	}
 	
 	public boolean addPlayer(Player NewPlayer) {
+		if(NewPlayer == null) {
+			return false;
+		}
+		
 		if(!hasHost() ) {
 			Host = NewPlayer;
 		}
