@@ -17,7 +17,8 @@ public class Module {
     public static void main(String[] args) {
     	
     	// Make sure inputs are valid
-    	if(args.length < 2 || !isNumeric(args[1])) {
+    	if(args.length != 1 || !isNumeric(args[0])) {
+    		System.out.println("Need one input (port)");
     		return;
     	}
     	
@@ -36,8 +37,8 @@ public class Module {
     	Server = new RoutingServer();
     	
     	try {
-    		System.out.println("Starting Listener at port: " + args[1]);
-    		Listener = new UDPSocketListener(Server, args[1]);
+    		System.out.println("Starting Listener at port: " + args[0]);
+    		Listener = new UDPSocketListener(Server, args[0]);
     		Listener.start();
     	} catch (Exception e) {
     		System.out.println("Listener Failed");
