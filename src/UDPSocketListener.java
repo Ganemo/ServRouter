@@ -13,7 +13,7 @@ public class UDPSocketListener {
 	private boolean Running;
 	
 	private byte[] buf = new byte[256];
-	private final String FailureMessage = "Could Not Add Player";
+	private final String FailureMessage = "Player Already Exists";
 	private byte[] FailureMessageBytes;
 	
 	private int DestinationSocket;

@@ -69,6 +69,11 @@ public class RoutingServer {
 	Player startPlaying(InetAddress IncomingIP, int IncomingPort) {
 		Player Player = new Player(IncomingIP, IncomingPort);
 		
+		// Check if player exists
+		if(PlayerMap.containsKey(Player)) {
+			return null;
+		}
+		
 		Region SelectedRegion = selectRegion();
 		
 		if(SelectedRegion == null) {
