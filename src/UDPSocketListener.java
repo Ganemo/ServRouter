@@ -71,6 +71,7 @@ public class UDPSocketListener {
 	
 	public void stop() {
 		Running = false;
+		Socket.close();
 		Socket = null;
 	}
 	
