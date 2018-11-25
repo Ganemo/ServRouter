@@ -12,6 +12,7 @@ public class Player {
 	public Player(InetAddress IP, int Port) {		
 		this.IP = IP;
 		this.Port = Port;
+		this.RegionID = -1;
 
 		if(IPBasedID) {
 			PlayerID = IP.toString().hashCode();

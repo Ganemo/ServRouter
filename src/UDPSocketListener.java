@@ -54,12 +54,7 @@ public class UDPSocketListener {
             // Try to register the player
             byte[] SendBytes;
             Player NewPlayer = Server.startPlaying(address, port);
-            if(NewPlayer != null) {
-            	SendBytes = ByteBuffer.allocate(4).putInt(NewPlayer.RegionID).array();
-            } else {
-            	SendBytes = FailureMessageBytes;
-            }
-            
+        	SendBytes = ByteBuffer.allocate(4).putInt(NewPlayer.RegionID).array();
             // Create reception message
             packet = new DatagramPacket(SendBytes, SendBytes.length, address, port);
             
