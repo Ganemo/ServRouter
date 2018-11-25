@@ -36,7 +36,7 @@ public class Module {
     	Server = new RoutingServer();
     	
     	try {
-    		System.out.println("Starting Listener");
+    		System.out.println("Starting Listener at port: " + args[1]);
     		Listener = new UDPSocketListener(Server, args[1]);
     		Listener.start();
     	} catch (Exception e) {
