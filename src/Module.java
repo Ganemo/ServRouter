@@ -22,15 +22,15 @@ public class Module {
     	}
     	
     	// Add shutdown
-//    	Runtime.getRuntime().addShutdownHook(new Thread()
-//    	{
-//    	    @Override
-//    	    public void run()
-//    	    {
-//    	    	Listener.stop();
-//    	    	Server.KickAllPlayers();
-//    	    }
-//    	});
+    	Runtime.getRuntime().addShutdownHook(new Thread()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	    	Listener.stop();
+    	    	Server.KickAllPlayers();
+    	    }
+    	});
     	
     	System.out.println("Starting Server");
     	Server = new RoutingServer();
