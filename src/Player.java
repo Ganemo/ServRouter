@@ -7,11 +7,17 @@ public class Player {
 	public int Port;
 	public int RegionID;
 	
+	public static boolean IPBasedID = true;
+	
 	public Player(InetAddress IP, int Port) {		
 		this.IP = IP;
 		this.Port = Port;
 
-		PlayerID = IP.toString().hashCode();
+		if(IPBasedID) {
+			PlayerID = IP.toString().hashCode();
+		} else {
+			PlayerID = (int)(Math.random() * 100000);
+		}
 	}
 	
 	@Override

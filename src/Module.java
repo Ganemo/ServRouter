@@ -17,9 +17,18 @@ public class Module {
     public static void main(String[] args) {
     	
     	// Make sure inputs are valid
-    	if(args.length != 1 || !isNumeric(args[0])) {
+    	if(args.length < 1 || !isNumeric(args[0])) {
     		System.out.println("Need one input (port)");
     		return;
+    	}
+    	
+    	// Read in IPBasedID
+    	if(args.length >= 2) {
+    		if(args[1].equals("0") || args[1].equals("1")) {
+    			Player.IPBasedID = args[1].equals("0") ? false : true;
+    		} else {
+    			System.out.println("IPBasedID should be 0 or 1");
+    		}
     	}
     	
     	// Add shutdown
