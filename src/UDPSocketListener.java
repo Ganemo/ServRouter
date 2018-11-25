@@ -2,8 +2,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.nio.ByteBuffer;
+
+import org.json.JSONObject;
 
 public class UDPSocketListener {
 
@@ -52,15 +52,13 @@ public class UDPSocketListener {
             int port = packet.getPort();
             
             // Try to register the player
-            byte[] SendBytes;
             Player NewPlayer = Server.startPlaying(address, port);
-            if(NewPlayer != null) {
-            	SendBytes = ByteBuffer.allocate(4).putInt(NewPlayer.RegionID).array();
-            } else {
-            	SendBytes = ByteBuffer.allocate(4).putInt(-1).array();
-            }
+            
+            // Make the response
+            String JSONString = makeJSONResponse(NewPlayer);
             
             // Create reception message
+            byte[] SendBytes = JSONString.getBytes();
             packet = new DatagramPacket(SendBytes, SendBytes.length, address, port);
             
             // Try to send message back
@@ -68,6 +66,21 @@ public class UDPSocketListener {
         }
 		
 		Socket.close();
+	}
+	
+	private String makeJSONResponse(Player player) {
+		JSONObject json = new JSONObject();
+		
+		if(player != null) {
+			json.put("bSuccess", true);
+			
+            json.put("PlayerID", player.PlayerID);
+            json.put("RegionID", player.RegionID);
+        } else {
+        	json.put("bSuccess", false);
+        }
+		
+		return json.toString();
 	}
 	
 	public void stop() {
