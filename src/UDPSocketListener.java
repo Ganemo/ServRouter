@@ -16,10 +16,11 @@ public class UDPSocketListener {
 	private final String FailureMessage = "Could Not Add Player";
 	private byte[] FailureMessageBytes;
 	
-	private final int DestinationSocket = 8000;
+	private int DestinationSocket = 8000;
 	
-	public UDPSocketListener(RoutingServer InServer) {
+	public UDPSocketListener(RoutingServer InServer, String InDestinationSocket) {
 		Server = InServer;
+		DestinationSocket = Integer.parseInt(InDestinationSocket);
 		FailureMessageBytes = FailureMessage.getBytes();
 	}
 	
