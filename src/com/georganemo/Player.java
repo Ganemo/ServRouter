@@ -1,3 +1,4 @@
+package com.georganemo;
 import java.net.InetAddress;
 
 public class Player {
