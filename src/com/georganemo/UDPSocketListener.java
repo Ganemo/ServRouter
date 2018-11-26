@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 
@@ -72,13 +73,39 @@ public class UDPSocketListener {
 	private String makeJSONResponse(Player player) {
 		JSONObject json = new JSONObject();
 		
-		if(player != null) {
-			json.put("bSuccess", true);
-			
-            json.put("PlayerID", player.PlayerID);
-            json.put("RegionID", player.RegionID);
-        } else {
+		if(player == null) {
         	json.put("bSuccess", false);
+        	return json.toString();
+		}
+		
+        Region Reg = Server.getRegion(player.RegionID);
+        
+        if(Reg == null) {
+        	json.put("bSuccess", false);
+        	return json.toString();
+		}
+		
+		json.put("bSuccess", true);
+		
+        json.put("PlayerID", player.PlayerID);
+        json.put("RegionID", player.RegionID);
+        
+        ArrayList<JSONObject> PlayerList = new ArrayList<JSONObject>();
+        for(int x=0; x<Reg.Players.size(); x++) {
+        	JSONObject playerjson = new JSONObject();
+        	
+        	playerjson.put("PlayerID", Reg.Players.get(x).PlayerID);
+        	playerjson.put("PlayerIP", Reg.Players.get(x).IP);
+        	playerjson.put("PlayerPort", Reg.Players.get(x).UDPPort);
+        	
+        	PlayerList.add(playerjson);
+        }
+        json.put("Players", PlayerList);
+        
+        if(!Reg.hasHost()) {            
+        	json.put("HostID", -1);
+        } else {
+        	json.put("HostID", Reg.Host.PlayerID);
         }
 		
 		return json.toString();

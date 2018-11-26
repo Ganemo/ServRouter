@@ -167,6 +167,10 @@ public class RoutingServer {
 	void KickAllPlayers() {
 		
 	}
+
+	public Region getRegion(int regionID) {
+		return RegionsByID.get(regionID);
+	}
 }
 	
 	

@@ -5,14 +5,14 @@ public class Player {
 	
 	public int PlayerID;
 	public InetAddress IP;
-	public int Port;
+	public int UDPPort;
 	public int RegionID;
 	
 	public static boolean IPBasedID = true;
 	
 	public Player(InetAddress IP, int Port) {		
 		this.IP = IP;
-		this.Port = Port;
+		this.UDPPort = Port;
 		this.RegionID = -1;
 
 		if(IPBasedID) {
